@@ -15,7 +15,7 @@ export default function ({setRoute}: {setRoute: Dispatch<SetStateAction<string>>
       return
     }
 
-    alert("Deu ruim!")
+    alert("Você não está logado!")
   }
 
   const alteraDados: MouseEventHandler<HTMLButtonElement> = async ev => {
@@ -36,9 +36,10 @@ export default function ({setRoute}: {setRoute: Dispatch<SetStateAction<string>>
 
   const logOff: MouseEventHandler<HTMLButtonElement> = async ev => {
     ev.preventDefault()
-    const request = await fetch(`/api/logged/${localStorage.removeItem('token')}`)
+    const request = await fetch(`/api/logged/${localStorage.getItem('token')}`)
 
     if (request.status >= 200 && request.status <= 299) {
+      localStorage.removeItem('token')
       alert("você saiu da conta")
       setRoute("login")
       return

@@ -15,7 +15,8 @@ const app = express()
 const session: TSession = {}
 
 app.use(express.json())
-app.use("/", express.static("../app/dist"))
+
+app.get("/api", (req, res) => res.json("estamos vivos, pero no mucho"))
 
 // CREATE
 app.post("/api/user/", (req, res) => {
@@ -53,6 +54,26 @@ app.post("/api/user/", (req, res) => {
    })
 })
 
+//UPDATE
+app.post("/api/user/update", (req, res) => {
+
+   const { name, email, password } = req.body
+   const sql = 'ALTER TABLE user (name, email, password) VALUES (?,?,?)'
+   const params = [name, email, password] 
+
+   database.run(sql, params, function (err) {
+      if (err) {
+         res.status(400).json({ "error": err.message })
+         return
+      }
+
+      res.status(200).json({
+         "message": "success",
+         "data": { name, email, password }
+      })
+   })
+})
+
 app.post("/api/login/", (req, res) => {
    const sql = "SELECT id, name, email FROM user WHERE email=? AND password=?"
    const { email, password } = req.body
@@ -80,12 +101,14 @@ app.get("/api/logged/:token", (req, res) => {
    const user = session[req.params.token]
 
    if (!user) {
-      res.status(400).json({ error: "Usuário não esta logado!"})
+      res.status(400).json({ error: "Usuário não está logado!"})
       return
    }
 
    res.json(user)
 })
 
+
+app.use("/", express.static("../app/dist"))
 
 app.listen(port, () => console.log(`⚡ servidor ${port}`))

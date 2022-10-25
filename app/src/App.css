@@ -79,12 +79,19 @@
     font-size: 14px;
     color: #342D29;
     text-align: center;
+    margin: 2px;
+  }
+
+  .btn-teste {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
   }
 
   button {
-    width: 50%;
+    width: 48%;
     border-radius: 8px;
-    border: 1px solid transparent;
+    margin: 5px;
     padding: 0.6em 1.2em;
     font-size: 1em;
     font-weight: 500;

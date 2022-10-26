@@ -1,8 +1,8 @@
 import { Dispatch, FormEventHandler, useState, SetStateAction } from "react";
 
 export default function ({ setRoute }: { setRoute: Dispatch<SetStateAction<string>> }) {
-    const [_name, setName] = useState("___")
-    const [email, setEmail] = useState("___")
+    const [_name, setName] = useState("nome")
+    const [email, setEmail] = useState("email")
 
     
     const apresentarDados = addEventListener('onload', async() => {

@@ -23,6 +23,7 @@ export default function ({setRoute}: {setRoute: Dispatch<SetStateAction<string>>
     const request = await fetch(`/api/logged/${localStorage.getItem('token')}`)
 
     if (request.status >= 200 && request.status <= 299) {
+      ev.preventDefault()
       const user = await request.json()
       setName(user.name)
       setEmail(user.email)
